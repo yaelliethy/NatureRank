@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -16,7 +17,6 @@
             <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.8/android" />
             <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-5.3.2+2/android" />
             <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/google_api_availability-2.0.4/android" />
-            <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-4.5.1/android" />
             <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.7+2/android" />
             <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/location_permissions-3.0.0+1/android" />
             <option value="$USER_HOME$/Applications/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.11/android" />

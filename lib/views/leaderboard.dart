@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equinox/equinox.dart';
 import 'package:flutter/material.dart';
-import 'package:NatureRank/util.dart';
+import 'package:naturerank/util.dart';
 
 class LeaderBoard extends StatefulWidget {
   LeaderBoard({Key key, this.title}) : super(key: key);

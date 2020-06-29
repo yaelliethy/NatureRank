@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equinox/equinox.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:NatureRank/util.dart';
+import 'package:naturerank/util.dart';
 
 class Jobs extends StatefulWidget {
   Jobs({Key key, this.title}) : super(key: key);
@@ -26,8 +26,8 @@ class _JobsState extends State<Jobs> {
   List<DocumentSnapshot> jobs = [];
   @override
   void initState() {
+    super.initState();
     _getData(() {
-      super.initState();
     });
   }
 
@@ -37,13 +37,13 @@ class _JobsState extends State<Jobs> {
     getDocumentPath().then((name_path) {
       Firestore.instance.document(name_path).get().then((snapshot) {
         Map jobMap = snapshot['jobs'];
-        List listToBeRemoved=[];
+        List listToBeRemoved = [];
         jobMap.forEach((key, value) {
           DateTime date = new DateTime.fromMicrosecondsSinceEpoch(
               value.microsecondsSinceEpoch);
           if (nowDate.difference(date).inHours >= 24) listToBeRemoved.add(key);
         });
-        jobMap.removeWhere( (e,_) => listToBeRemoved.contains(e));
+        jobMap.removeWhere((e, _) => listToBeRemoved.contains(e));
         Firestore.instance.document(name_path).updateData({
           "events_joined": snapshot['events_joined'],
           "jobs": jobMap,
@@ -53,7 +53,8 @@ class _JobsState extends State<Jobs> {
         Firestore.instance
             .collection("jobs")
             .getDocuments()
-            .then((querySnapshot) {
+            .asStream()
+            .listen((querySnapshot) {
           List<DocumentSnapshot> docs = querySnapshot.documents;
           List<DocumentSnapshot> newDocs = [];
           for (int x = 0; x < docs.length; x++) {
@@ -75,34 +76,41 @@ class _JobsState extends State<Jobs> {
     return EqLayout(
       appBar: EqAppBar(
         title: "Jobs",
-        subtitle: "Click on item to finish (will reset after 24 hours)",
+        subtitle: "Click on item to finish",
       ),
-      child: ListView.builder(
-          itemCount: jobs.length,
-          itemBuilder: (BuildContext context, int pos) {
-            return GestureDetector(
-                onTap: () {
-                  getDocumentPath().then((name_path) {
-                    Firestore.instance.document(name_path).get().then((snapshot) {
-                      Map jobMap = snapshot['jobs'];
-                      setState(() {
-                        jobMap
-                            .addAll({jobs[pos].reference.path: Timestamp.now()});
-                        Firestore.instance.document(name_path).updateData({
-                          "events_joined": snapshot['events_joined'],
-                          "jobs": jobMap,
-                          "name": snapshot['name'],
-                          "points": snapshot['points'] + jobs[pos]['points']
+      child: Container(
+          height: 500,
+          child: ListView.builder(
+              itemCount: jobs.length,
+              itemBuilder: (BuildContext context, int pos) {
+                return GestureDetector(
+                    onTap: () {
+                      getDocumentPath().then((name_path) {
+                        Firestore.instance
+                            .document(name_path)
+                            .get()
+                            .then((snapshot) {
+                          Map jobMap = snapshot['jobs'];
+                          setState(() {
+                            jobMap.addAll(
+                                {jobs[pos].reference.path: Timestamp.now()});
+                            Firestore.instance.document(name_path).updateData({
+                              "events_joined": snapshot['events_joined'],
+                              "jobs": jobMap,
+                              "name": snapshot['name'],
+                              "points": snapshot['points'] + jobs[pos]['points']
+                            });
+                            _getData(() {});
+                          });
                         });
-                        _getData(() {});
                       });
-                    });
-                  });
-                },
-                child: EqCard(
-              child: Text(jobs[pos]['job']),
-            ));
-          }),
+                    },
+                    child: Container(
+                      height: 30,
+                        child: EqCard(
+                      child: Text(jobs[pos]['job']),
+                    )));
+              })),
     );
   }
 }

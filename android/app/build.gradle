@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.hack20.NatureRank"
+        applicationId "com.hack20.naturerank"
         minSdkVersion 16
         multiDexEnabled true
         targetSdkVersion 28
@@ -64,4 +64,3 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3' // use latest version
 }
-apply plugin: 'com.google.gms.google-services'

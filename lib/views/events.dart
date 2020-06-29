@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart' as color;
 import 'package:equinox/equinox.dart';
-import 'package:NatureRank/views/viewEvent.dart';
+import 'package:naturerank/util.dart';
+import 'package:naturerank/views/viewEvent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -39,9 +40,7 @@ class _EventsState extends State<Events> {
     SharedPreferences.getInstance().then((value) {
       name = value.getString("name");
     });
-    SharedPreferences.getInstance().then((value) {
-      name_path = value.getString("document_path");
-    });
+    getDocumentPath().then((value) => name_path);
   }
 
   @override

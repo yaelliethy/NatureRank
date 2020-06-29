@@ -1,6 +1,6 @@
 import 'package:equinox/equinox.dart';
 import 'package:flutter/material.dart';
-import 'package:NatureRank/util.dart';
+import 'package:naturerank/util.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key key, this.title}) : super(key: key);

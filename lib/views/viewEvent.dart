@@ -9,10 +9,10 @@ import 'package:equinox/equinox.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:map_controller/map_controller.dart';
-import 'package:NatureRank/util.dart';
-import 'package:NatureRank/views/events.dart';
-import 'package:NatureRank/views/eventsBase.dart';
-
+import 'package:naturerank/util.dart';
+import 'package:naturerank/views/events.dart';
+import 'package:naturerank/views/eventsBase.dart';
+import 'package:naturerank/views/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewEvent extends StatefulWidget {

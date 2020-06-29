@@ -1,16 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart' as color;
 import 'package:equinox/equinox.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:NatureRank/views/events.dart';
-import 'package:NatureRank/views/eventsBase.dart';
-import 'package:NatureRank/views/jobs.dart';
-import 'package:NatureRank/views/leaderboard.dart';
-import 'package:NatureRank/views/settings.dart';
-
+import 'package:naturerank/views/events.dart';
+import 'package:naturerank/views/eventsBase.dart';
+import 'package:naturerank/views/jobs.dart';
+import 'package:naturerank/views/leaderboard.dart';
+import 'package:naturerank/views/settings.dart';
+import 'package:naturerank/views/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BaseView extends StatefulWidget {
@@ -35,9 +32,6 @@ class _BaseViewState extends State<BaseView>
     with SingleTickerProviderStateMixin {
   TabController _controller;
   int _currentIndex = 0;
-  Widget buttonLeading;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     _controller = TabController(
@@ -49,77 +43,13 @@ class _BaseViewState extends State<BaseView>
         _currentIndex = _controller.index;
       });
     });
-    checkIfNameExists().then((exists) {
-      if(!exists)
-        setName(() {
-        });
-      super.initState();
-
-    });
-  }
-
-  Future<FirebaseUser> _handleSignIn() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential)).user;
-    print("signed in " + user.displayName);
-    return user;
+    super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  Future<void> setName(void then()) async {
-    _handleSignIn().then((fireBaseUser) async {
-      setState(() {
-        buttonLeading = EqSpinner();
-      });
-      Future.delayed(const Duration(seconds: 3), () => "1");
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      Firestore.instance
-          .collection('users')
-          .where('id', isEqualTo: fireBaseUser.uid)
-          .getDocuments()
-          .then((value) {
-        if (value.documents.length == 0) {
-          Firestore.instance.collection('users').add({
-            'name': fireBaseUser.displayName,
-            'id': fireBaseUser.uid,
-            'points': 0,
-            'events_joined': [],
-            'jobs': [],
-          }).then((value) {
-            SharedPreferences.getInstance().then((prefs) {
-              prefs.setString('name', fireBaseUser.displayName);
-              prefs.setString('document_path', value.path);
-              then();
-            });
-          });
-        } else {
-          prefs.setString('name', fireBaseUser.displayName);
-          prefs.setString('document_path', value.documents[0].reference.path);
-          then();
-        }
-      });
-    });
-  }
-  void logout(){
-    
-  }
-
-  Future<bool> checkIfNameExists() async {
-    return (await SharedPreferences.getInstance()).containsKey('name');
   }
 
   @override
@@ -161,35 +91,23 @@ class _BaseViewState extends State<BaseView>
             ),
             EqTabData(
               title: (context) {
-                return Text("Logout");
+                return Text("Settings");
               },
               icon: (context) {
-                return Icon(Icons.exit_to_app);
+                return Icon(Icons.settings);
               },
             ),
           ]),
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: _controller,
-        children: <Widget>[EventsBase(), Jobs(), LeaderBoard(), LogOut()],
+        children: <Widget>[
+          EventsBase(),
+          Jobs(),
+          LeaderBoard(),
+          Settings()
+        ],
       ),
     );
   }
-}
-class LogOut extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    SharedPreferences.getInstance().then((prefs){
-      prefs.remove('name');
-      prefs.remove('document_path');
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => BaseView(),
-        ),
-      );
-    });
-    return Container();
-  }
-  
 }

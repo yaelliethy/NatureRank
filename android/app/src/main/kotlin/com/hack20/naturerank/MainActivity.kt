@@ -1,4 +1,4 @@
-package com.hack20.NatureRank
+package com.hack20.naturerank
 
 import io.flutter.embedding.android.FlutterActivity
 

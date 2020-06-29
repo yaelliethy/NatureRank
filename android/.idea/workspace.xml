@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="298d539f-d5a9-461a-9c45-0db5e5aaf25a" name="Default Changelist" comment="" />
+    <list default="true" id="68c193a7-0b8c-4848-b98e-2d08e67a06c2" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="HA0RV9F3" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -22,14 +22,26 @@
     </system>
   </component>
   <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../../nature_rank/android/app/myKey" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
     <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
-  <component name="ProjectId" id="1dy7xCfrAvbju9eEGMHNLGllbOs" />
+  <component name="ProjectId" id="1dzPqPuo5BuCSaOx2WA1F9ubMKy" />
   <component name="PropertiesComponent">
     <property name="ApkExportedModule" value="app" />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.SignV1" value="true" />
+    <property name="ExportApk.SignV2" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
-    <property name="last_opened_file_path" value="$USER_HOME$/.android/debug.keystore" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../nature_rank/android/app/myKey" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -108,11 +120,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="298d539f-d5a9-461a-9c45-0db5e5aaf25a" name="Default Changelist" comment="" />
-      <created>1593385723626</created>
+      <changelist id="68c193a7-0b8c-4848-b98e-2d08e67a06c2" name="Default Changelist" comment="" />
+      <created>1593425138188</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1593385723626</updated>
+      <updated>1593425138188</updated>
     </task>
     <servers />
   </component>

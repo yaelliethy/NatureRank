@@ -1,4 +1,4 @@
-name: NatureRank
+name: naturerank
 description: #Hack20. An app that makes saving earth fun
 
 # The following line prevents the package from being accidentally published to
@@ -45,12 +45,12 @@ dependencies:
   map_controller: ^0.8.0
   geolocator: ^5.3.2+2
   image_picker_gallery_camera: ^0.1.6
-  google_sign_in: ^4.5.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.7.3"
+
 flutter_icons:
   android: "launcher_icon"
   ios: true

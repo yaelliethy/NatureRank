@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart' as color;
 import 'package:equinox/equinox.dart';
-import 'package:NatureRank/views/events.dart';
-
+import 'package:naturerank/views/events.dart';
+import 'package:naturerank/views/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'addEvent.dart';
@@ -29,7 +29,7 @@ class EventsBase extends StatefulWidget {
 class _EventsBaseState extends State<EventsBase>
     with SingleTickerProviderStateMixin {
   TabController _controller;
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   @override
   void initState() {
     _controller = TabController(

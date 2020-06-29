@@ -1,8 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:equinox/equinox.dart';
-import 'package:NatureRank/baseView.dart';
-
+import 'package:naturerank/views/welcome.dart';
 import 'package:page_transition/page_transition.dart';
 void main() {
   runApp(NatureRank());
@@ -13,7 +12,7 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: 'assets/logo.png',
-      nextScreen: BaseView(),
+      nextScreen: NatureRank(),
       splashTransition: SplashTransition.slideTransition,
       pageTransitionType: PageTransitionType.leftToRight,
     );
@@ -26,7 +25,7 @@ class NatureRank extends StatelessWidget {
     return EquinoxApp(
       theme: EqThemes.defaultLightTheme,
       title: 'NatureRank',
-      home: Splash(),
+      home: Welcome(title: 'Welcome'),
     );
   }
 }
