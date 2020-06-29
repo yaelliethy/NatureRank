@@ -54,7 +54,7 @@ class _ViewEventState extends State<ViewEvent>
 
     document = widget.document;
     eventPosition =
-        new LatLng(document['location_lat'], document['location_lng']);
+        new LatLng(double.parse(document['location_lat'].toString()), double.parse(document['location_lng'].toString()));
     _mapController = MapController(); //Normal map controller
     statefulMapController =
         StatefulMapController(mapController: _mapController);

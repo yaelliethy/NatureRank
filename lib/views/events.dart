@@ -24,40 +24,53 @@ class Events extends StatefulWidget {
   final String title;
 
   @override
-  _EventsState createState() => _EventsState(myOnly);
+  _EventsState createState() => _EventsState();
 }
 
-class _EventsState extends State<Events> {
+class _EventsState extends State<Events>{
   TextEditingController _controller = TextEditingController();
   Widget buttonLeading;
   bool myOnly;
   String name;
   String name_path;
-  _EventsState(this.myOnly);
+  Future future;
   @override
   void initState() {
+    myOnly=widget.myOnly;
     super.initState();
     SharedPreferences.getInstance().then((value) {
       name = value.getString("name");
     });
-    getDocumentPath().then((value) => name_path);
+    getDocumentPath().then((name_path){
+      setState(() {
+        if(myOnly){
+          future=Firestore.instance
+              .collection('events')
+              .where("name_path", isEqualTo: name_path)
+              .getDocuments();
+        }
+        else{
+          future=Firestore.instance.collection('events').getDocuments();
+        }
+      });
+    });
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: EqLayout(child: getListView()),
-      key: new PageStorageKey(1),
     );
   }
 
   Widget getListView() {
-    if (myOnly) {
+    if(future==null){
+      return Container();
+    }
+    else if (myOnly) {
       return FutureBuilder<QuerySnapshot>(
-        future: Firestore.instance
-            .collection('events')
-            .where("name_path", isEqualTo: name_path)
-            .getDocuments(),
+        future: future,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           switch (snapshot.connectionState) {
@@ -102,7 +115,7 @@ class _EventsState extends State<Events> {
                               ),
                               Positioned(
                                 child: Text(
-                                    document['points'].toString() + " Points"),
+                                    document['points'].toString() + " Points", style: TextStyle(color: color.Colors.green),),
                                 bottom: 16,
                                 right: 10,
                               )])));
@@ -115,7 +128,7 @@ class _EventsState extends State<Events> {
       );
     } else {
       return FutureBuilder<QuerySnapshot>(
-        future: Firestore.instance.collection('events').getDocuments(),
+        future: future,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           switch (snapshot.connectionState) {
@@ -156,7 +169,7 @@ class _EventsState extends State<Events> {
                         ),
                         Positioned(
                           child:
-                              Text(document['points'].toString() + " Points"),
+                              Text(document['points'].toString() + " Points", style: TextStyle(color: color.Colors.green)),
                           bottom: 16,
                           right: 10,
                         )

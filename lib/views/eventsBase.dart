@@ -29,18 +29,13 @@ class EventsBase extends StatefulWidget {
 class _EventsBaseState extends State<EventsBase>
     with SingleTickerProviderStateMixin {
   TabController _controller;
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   @override
   void initState() {
     _controller = TabController(
       length: 2,
       vsync: this,
     );
-    _controller.addListener(() {
-      setState(() {
-        _currentIndex = _controller.index;
-      });
-    });
     super.initState();
   }
 
@@ -74,11 +69,11 @@ class _EventsBaseState extends State<EventsBase>
           appBar:  EqTabBar.top(
               defaultSelected: _currentIndex,
               onSelect: (pos) {
+                _controller.animateTo(pos,
+                    duration: Duration(milliseconds: 300), curve: Curves.easeIn);
                 setState(() {
                   _currentIndex = pos;
                 });
-                _controller.animateTo(_currentIndex,
-                    duration: Duration(milliseconds: 300), curve: Curves.easeIn);
               },
               tabs: <EqTabData>[
                 EqTabData(

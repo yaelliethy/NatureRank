@@ -151,11 +151,12 @@ class _AddEventState extends State<AddEvent> {
                         'points': int.parse(_pointsController.text),
                         'name_path': name_path,
                         'name':name
+                      }).then((value){
+                        Navigator.of(context).pop();
                       });
                     });
                   });
                 });
-                Navigator.of(context).pop();
               }
             },
           )
